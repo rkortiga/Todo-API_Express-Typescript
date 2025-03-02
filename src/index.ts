@@ -15,7 +15,6 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Initialize repository, service, and controller
-//const todoRepository = new InMemoryTodoRepository();
 const todoRepository = new SqlServerTodoRepository();
 const todoService = new TodoService(todoRepository);
 const todoController = TodoController(todoService);
