@@ -1,7 +1,7 @@
 
-import { Todo } from "../domain/entities/Todo";
+import { Todo } from "../../domain/entities/Todo";
 import { v4 as uuidv4 } from "uuid";
-import { ITodoRepository } from '../domain/interfaces/ITodoRepository';
+import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
 
 export class InMemoryTodoRepository implements ITodoRepository {
       private todos: Todo[] = [];
