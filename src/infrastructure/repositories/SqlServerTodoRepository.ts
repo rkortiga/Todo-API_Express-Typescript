@@ -1,0 +1,108 @@
+import dotenv from "dotenv";
+import { v4 as uuidv4 } from "uuid";
+import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
+import { Todo } from '../../domain/entities/Todo';
+import sql from "mssql";
+
+dotenv.config();
+
+const config = {
+      user: process.env.SQL_USER as string,
+      password: process.env.SQL_PASSWORD as string,
+      server: process.env.SQL_SERVER as string,
+      database: process.env.SQL_DATABASE as string,
+      options: {
+            encrypt: process.env.SQL_ENCRYPT === "true",
+            trustServerCertificate: process.env.SQL_TRUST_SERVER_CERTIFICATE === "true",
+      },
+};
+
+export class SqlServerTodoRepository implements ITodoRepository {
+      private pool: sql.ConnectionPool;
+
+      constructor() {
+            this.pool = new sql.ConnectionPool(config);
+            this.pool.connect().catch((err) =>
+                  console.error("SQL Server connection failed: ", err)
+            );
+      }
+
+      async getAll(): Promise<Todo[]> {
+            try {
+                  const result = await this.pool.request().query(
+                        "SELECT id, title, completed FROM Todos"
+                  );
+                  return result.recordset.map((row: any) => ({
+                        id: row.id,
+                        title: row.title,
+                        completed: row.completed,
+                  }));
+            } catch (err) {
+                  console.error(err);
+                  throw err;
+            }
+      }
+
+      async getById(id: string): Promise<Todo | null> {
+            try {
+                  const result = await this.pool
+                        .request()
+                        .input("id", sql.UniqueIdentifier, id)
+                        .query("SELECT id, title, completed FROM Todos WHERE id = @id");
+                  if (result.recordset.length > 0) {
+                        return result.recordset[0];
+                  }
+                  return null;
+            } catch (err) {
+                  console.error(err);
+                  throw err;
+            }
+      }
+
+      async create(todo: Todo): Promise<Todo> {
+            try {
+                  todo.id = uuidv4();
+                  await this.pool
+                        .request()
+                        .input("id", sql.UniqueIdentifier, todo.id)
+                        .input("title", sql.NVarChar, todo.title)
+                        .input("completed", sql.Bit, todo.completed)
+                        .query(
+                              "INSERT INTO Todos (id, title, completed) VALUES (@id, @title, @completed)"
+                        );
+                  return todo;
+            } catch (err) {
+                  console.error(err);
+                  throw err;
+            }
+      }
+
+      async update(todo: Todo): Promise<Todo> {
+            try {
+                  await this.pool
+                        .request()
+                        .input("id", sql.UniqueIdentifier, todo.id)
+                        .input("title", sql.NVarChar, todo.title)
+                        .input("completed", sql.Bit, todo.completed)
+                        .query(
+                              "UPDATE Todos SET title = @title, completed = @completed WHERE id = @id"
+                        );
+                  return todo;
+            } catch (err) {
+                  console.error(err);
+                  throw err;
+            }
+      }
+
+      async delete(id: string): Promise<void> {
+            try {
+                  await this.pool
+                        .request()
+                        .input("id", sql.UniqueIdentifier, id)
+                        .query("DELETE FROM Todos WHERE id = @id");
+            } catch (err) {
+                  console.error(err);
+                  throw err;
+            }
+      }
+}
