@@ -7,7 +7,6 @@ A simple CRUD Todo API built with **Express** and **TypeScript**, following Clea
 - **Clean Architecture** structure (domain, application, infrastructure, and API layers).
 - **SQL Server** integration via a repository pattern.
 - **Swagger** documentation for easy API exploration.
-- **dotenv** for environment variable management.
 
 ## Getting Started
 
