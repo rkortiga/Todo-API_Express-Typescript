@@ -1,41 +1,28 @@
-import dotenv from "dotenv";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
 import { Todo } from '../../domain/entities/Todo';
-import sql from "mssql";
-
-dotenv.config();
-
-const config = {
-      user: process.env.SQL_USER as string,
-      password: process.env.SQL_PASSWORD as string,
-      server: process.env.SQL_SERVER as string,
-      database: process.env.SQL_DATABASE as string,
-      options: {
-            encrypt: process.env.SQL_ENCRYPT === "true",
-            trustServerCertificate: process.env.SQL_TRUST_SERVER_CERTIFICATE === "true",
-      },
-};
+import sql from 'mssql';
+import { DatabaseConfig } from '../configurations/DatabaseConfig';
 
 export class SqlServerTodoRepository implements ITodoRepository {
       private pool: sql.ConnectionPool;
 
       constructor() {
-            this.pool = new sql.ConnectionPool(config);
+            this.pool = new sql.ConnectionPool(DatabaseConfig);
             this.pool.connect().catch((err) =>
-                  console.error("SQL Server connection failed: ", err)
+                  console.error('SQL Server connection failed: ', err)
             );
       }
 
       async getAll(): Promise<Todo[]> {
             try {
                   const result = await this.pool.request().query(
-                        "SELECT id, title, completed FROM Todos"
+                        'SELECT id, title, completed FROM Todos'
                   );
                   return result.recordset.map((row: any) => ({
                         id: row.id,
                         title: row.title,
-                        completed: row.completed,
+                        completed: row.completed
                   }));
             } catch (err) {
                   console.error(err);
@@ -47,8 +34,8 @@ export class SqlServerTodoRepository implements ITodoRepository {
             try {
                   const result = await this.pool
                         .request()
-                        .input("id", sql.UniqueIdentifier, id)
-                        .query("SELECT id, title, completed FROM Todos WHERE id = @id");
+                        .input('id', sql.UniqueIdentifier, id)
+                        .query('SELECT id, title, completed FROM Todos WHERE id = @id');
                   if (result.recordset.length > 0) {
                         return result.recordset[0];
                   }
@@ -64,11 +51,11 @@ export class SqlServerTodoRepository implements ITodoRepository {
                   todo.id = uuidv4();
                   await this.pool
                         .request()
-                        .input("id", sql.UniqueIdentifier, todo.id)
-                        .input("title", sql.NVarChar, todo.title)
-                        .input("completed", sql.Bit, todo.completed)
+                        .input('id', sql.UniqueIdentifier, todo.id)
+                        .input('title', sql.NVarChar, todo.title)
+                        .input('completed', sql.Bit, todo.completed)
                         .query(
-                              "INSERT INTO Todos (id, title, completed) VALUES (@id, @title, @completed)"
+                              'INSERT INTO Todos (id, title, completed) VALUES (@id, @title, @completed)'
                         );
                   return todo;
             } catch (err) {
@@ -81,11 +68,11 @@ export class SqlServerTodoRepository implements ITodoRepository {
             try {
                   await this.pool
                         .request()
-                        .input("id", sql.UniqueIdentifier, todo.id)
-                        .input("title", sql.NVarChar, todo.title)
-                        .input("completed", sql.Bit, todo.completed)
+                        .input('id', sql.UniqueIdentifier, todo.id)
+                        .input('title', sql.NVarChar, todo.title)
+                        .input('completed', sql.Bit, todo.completed)
                         .query(
-                              "UPDATE Todos SET title = @title, completed = @completed WHERE id = @id"
+                              'UPDATE Todos SET title = @title, completed = @completed WHERE id = @id'
                         );
                   return todo;
             } catch (err) {
@@ -98,8 +85,8 @@ export class SqlServerTodoRepository implements ITodoRepository {
             try {
                   await this.pool
                         .request()
-                        .input("id", sql.UniqueIdentifier, id)
-                        .query("DELETE FROM Todos WHERE id = @id");
+                        .input('id', sql.UniqueIdentifier, id)
+                        .query('DELETE FROM Todos WHERE id = @id');
             } catch (err) {
                   console.error(err);
                   throw err;
