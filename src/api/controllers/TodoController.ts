@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { TodoService } from "../../application/services/TodoService";
+import { Request, Response } from 'express';
+import { TodoService } from '../../application/services/TodoService';
 
 /**
  * @swagger
@@ -8,7 +8,8 @@ import { TodoService } from "../../application/services/TodoService";
  *   description: Todo management endpoints
  */
 export class TodoController {
-      constructor(private todoService: TodoService) {}
+      constructor(private todoService: TodoService) {
+      }
 
       /**
        * @swagger
@@ -33,7 +34,7 @@ export class TodoController {
                   const todos = await this.todoService.getAllTodos();
                   res.json(todos);
             } catch (error: any) {
-                  res.status(500).json({ error: error.message });
+                  res.status(500).json({error: error.message});
             }
       }
 
@@ -66,12 +67,12 @@ export class TodoController {
             try {
                   const todo = await this.todoService.getTodoById(req.params.id);
                   if (!todo) {
-                        res.status(404).json({ message: "Todo not found" });
+                        res.status(404).json({message: 'Todo not found'});
                   } else {
                         res.json(todo);
                   }
             } catch (error: any) {
-                  res.status(500).json({ error: error.message });
+                  res.status(500).json({error: error.message});
             }
       }
 
@@ -104,11 +105,11 @@ export class TodoController {
        */
       async create(req: Request, res: Response): Promise<void> {
             try {
-                  const { title } = req.body;
+                  const {title} = req.body;
                   const newTodo = await this.todoService.createTodo(title);
                   res.status(201).json(newTodo);
             } catch (error: any) {
-                  res.status(500).json({ error: error.message });
+                  res.status(500).json({error: error.message});
             }
       }
 
@@ -151,11 +152,11 @@ export class TodoController {
        */
       async update(req: Request, res: Response): Promise<void> {
             try {
-                  const { title, completed } = req.body;
+                  const {title, completed} = req.body;
                   const updatedTodo = await this.todoService.updateTodo(req.params.id, title, completed);
                   res.json(updatedTodo);
             } catch (error: any) {
-                  res.status(500).json({ error: error.message });
+                  res.status(500).json({error: error.message});
             }
       }
 
@@ -183,7 +184,7 @@ export class TodoController {
                   await this.todoService.deleteTodo(req.params.id);
                   res.status(204).send();
             } catch (error: any) {
-                  res.status(500).json({ error: error.message });
+                  res.status(500).json({error: error.message});
             }
       }
 }

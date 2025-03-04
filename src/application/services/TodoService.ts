@@ -2,7 +2,8 @@ import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
 import { Todo } from '../../domain/entities/Todo';
 
 export class TodoService {
-      constructor(private todoRepository: ITodoRepository) {}
+      constructor(private todoRepository: ITodoRepository) {
+      }
 
       async getAllTodos(): Promise<Todo[]> {
             return this.todoRepository.getAll();
@@ -13,14 +14,14 @@ export class TodoService {
       }
 
       async createTodo(title: string): Promise<Todo> {
-            const todo: Todo = { id: "", title, completed: false };
+            const todo: Todo = {id: '', title, completed: false};
             return this.todoRepository.create(todo);
       }
 
       async updateTodo(id: string, title: string, completed: boolean): Promise<Todo> {
             const existingTodo = await this.todoRepository.getById(id);
             if (!existingTodo) {
-                  throw new Error("Todo not found");
+                  throw new Error('Todo not found');
             }
             existingTodo.title = title;
             existingTodo.completed = completed;
