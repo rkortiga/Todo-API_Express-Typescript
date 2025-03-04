@@ -1,5 +1,5 @@
-import { TodoService } from '../../application/services/TodoService';
-import { Router, Request, Response } from "express";
+import { Request, Response } from "express";
+import { TodoService } from "../../application/services/TodoService";
 
 /**
  * @swagger
@@ -7,8 +7,8 @@ import { Router, Request, Response } from "express";
  *   name: Todos
  *   description: Todo management endpoints
  */
-export function TodoController(todoService: TodoService) {
-      const router = Router();
+export class TodoController {
+      constructor(private todoService: TodoService) {}
 
       /**
        * @swagger
@@ -26,30 +26,30 @@ export function TodoController(todoService: TodoService) {
        *               items:
        *                 $ref: '#/components/schemas/Todo'
        *       500:
-       *         description: Server error
+       *         description: Server error.
        */
-      router.get("/", async (_req: Request, res: Response) => {
+      async getAll(_req: Request, res: Response): Promise<void> {
             try {
-                  const todos = await todoService.getAllTodos();
+                  const todos = await this.todoService.getAllTodos();
                   res.json(todos);
             } catch (error: any) {
                   res.status(500).json({ error: error.message });
             }
-      });
+      }
 
       /**
        * @swagger
        * /todos/{id}:
        *   get:
-       *     summary: Get a todo by id
+       *     summary: Retrieve a single todo by ID
        *     tags: [Todos]
        *     parameters:
        *       - in: path
        *         name: id
+       *         required: true
        *         schema:
        *           type: string
-       *         required: true
-       *         description: The todo id
+       *         description: The todo ID.
        *     responses:
        *       200:
        *         description: The requested todo.
@@ -62,9 +62,9 @@ export function TodoController(todoService: TodoService) {
        *       500:
        *         description: Server error.
        */
-      router.get("/:id", async (req: Request, res: Response) => {
+      async getById(req: Request, res: Response): Promise<void> {
             try {
-                  const todo = await todoService.getTodoById(req.params.id);
+                  const todo = await this.todoService.getTodoById(req.params.id);
                   if (!todo) {
                         res.status(404).json({ message: "Todo not found" });
                   } else {
@@ -73,7 +73,7 @@ export function TodoController(todoService: TodoService) {
             } catch (error: any) {
                   res.status(500).json({ error: error.message });
             }
-      });
+      }
 
       /**
        * @swagger
@@ -102,15 +102,15 @@ export function TodoController(todoService: TodoService) {
        *       500:
        *         description: Server error.
        */
-      router.post("/", async (req: Request, res: Response) => {
+      async create(req: Request, res: Response): Promise<void> {
             try {
                   const { title } = req.body;
-                  const newTodo = await todoService.createTodo(title);
+                  const newTodo = await this.todoService.createTodo(title);
                   res.status(201).json(newTodo);
             } catch (error: any) {
                   res.status(500).json({ error: error.message });
             }
-      });
+      }
 
       /**
        * @swagger
@@ -121,10 +121,10 @@ export function TodoController(todoService: TodoService) {
        *     parameters:
        *       - in: path
        *         name: id
+       *         required: true
        *         schema:
        *           type: string
-       *         required: true
-       *         description: The todo id
+       *         description: The todo ID.
        *     requestBody:
        *       required: true
        *       content:
@@ -149,15 +149,15 @@ export function TodoController(todoService: TodoService) {
        *       500:
        *         description: Server error.
        */
-      router.put("/:id", async (req: Request, res: Response) => {
+      async update(req: Request, res: Response): Promise<void> {
             try {
                   const { title, completed } = req.body;
-                  const updatedTodo = await todoService.updateTodo(req.params.id, title, completed);
+                  const updatedTodo = await this.todoService.updateTodo(req.params.id, title, completed);
                   res.json(updatedTodo);
             } catch (error: any) {
                   res.status(500).json({ error: error.message });
             }
-      });
+      }
 
       /**
        * @swagger
@@ -168,24 +168,22 @@ export function TodoController(todoService: TodoService) {
        *     parameters:
        *       - in: path
        *         name: id
+       *         required: true
        *         schema:
        *           type: string
-       *         required: true
-       *         description: The todo id
+       *         description: The todo ID.
        *     responses:
        *       204:
        *         description: Todo deleted successfully.
        *       500:
        *         description: Server error.
        */
-      router.delete("/:id", async (req: Request, res: Response) => {
+      async delete(req: Request, res: Response): Promise<void> {
             try {
-                  await todoService.deleteTodo(req.params.id);
+                  await this.todoService.deleteTodo(req.params.id);
                   res.status(204).send();
             } catch (error: any) {
                   res.status(500).json({ error: error.message });
             }
-      });
-
-      return router;
+      }
 }
