@@ -142,5 +142,7 @@ atlassian-ide-plugin.xml
 ## VSCode
 .vscode/
 
+src/dummy.js
+
 # ==================================================
 # End of .gitignore
