@@ -1,5 +1,10 @@
+import dotenv from 'dotenv';
 import swaggerJSDoc from 'swagger-jsdoc';
 import { Options } from 'swagger-jsdoc';
+
+dotenv.config();
+
+const port = process.env.PORT || 3000;
 
 const options: Options = {
       definition: {
@@ -11,13 +16,12 @@ const options: Options = {
             },
             servers: [
                   {
-                        url: 'http://localhost:3000',
+                        url: `http://localhost:${port}`,
                         description: 'Development server',
                   },
             ],
       },
-      // Path to the API docs
-            apis: ['./src/api/**/*.ts', './src/domain/entities/**/*.ts'],
+      apis: ['./src/api/**/*.ts', './src/domain/entities/**/*.ts'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
