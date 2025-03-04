@@ -12,7 +12,7 @@ A simple CRUD Todo API built with **Express** and **TypeScript**, following Clea
 
 1. **Clone the Repository**  
    ```
-   git clone https://github.com/your-username/TodoAPI.git
+   git clone https://github.com/rkortiga/Todo-API_Express-Typescript.git
    ```
 
 2. **Install Dependencies**
@@ -28,6 +28,7 @@ A simple CRUD Todo API built with **Express** and **TypeScript**, following Clea
    SQL_DATABASE=YourDatabase
    SQL_ENCRYPT=false
    SQL_TRUST_SERVER_CERTIFICATE=true
+   PORT=your_port_number
    ```
 4. **Run in Development Mode**
    ```
@@ -35,7 +36,7 @@ A simple CRUD Todo API built with **Express** and **TypeScript**, following Clea
    ```
 
 ## Usage
-**Swagger UI is available at http://localhost:3000/api-docs for interactive API docs.**
+**By default, Swagger UI is available at http://localhost:3000/api-docs unless you configure a different port in your `.env` file.**
 
 **Endpoints:**
 - `GET /todos`
