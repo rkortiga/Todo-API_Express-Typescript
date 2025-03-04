@@ -28,7 +28,7 @@ export function TodoController(todoService: TodoService) {
        *       500:
        *         description: Server error
        */
-      router.get("/", async (req: Request, res: Response) => {
+      router.get("/", async (_req: Request, res: Response) => {
             try {
                   const todos = await todoService.getAllTodos();
                   res.json(todos);
