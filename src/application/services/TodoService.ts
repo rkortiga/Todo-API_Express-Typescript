@@ -1,7 +1,8 @@
 import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
+import { ITodoService } from '../../domain/interfaces/ITodoService';
 import { Todo } from '../../domain/entities/Todo';
 
-export class TodoService {
+export class TodoService implements ITodoService {
       constructor(private todoRepository: ITodoRepository) {
       }
 
