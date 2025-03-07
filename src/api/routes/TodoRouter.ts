@@ -1,5 +1,4 @@
-import { Router } from 'express';
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { TodoController } from '../controllers/TodoController';
 import { TodoService } from '../../application/services/TodoService';
 import { TodoRepository } from '../../infrastructure/repositories/TodoRepository';

@@ -10,6 +10,7 @@ import { UpdateTodoDto } from '../../domain/dtos/UpdateTodoDto';
  *   description: Todo management endpoints
  */
 export class TodoController {
+
       constructor(private todoService: TodoService) {
       }
 
@@ -106,7 +107,7 @@ export class TodoController {
                   const newTodo = await this.todoService.createTodo(dto);
                   res.status(201).json(newTodo);
             } catch (error: any) {
-                  res.status(500).json({ error: error.message });
+                  res.status(500).json({error: error.message});
             }
       }
 
@@ -145,7 +146,7 @@ export class TodoController {
                   const updatedTodo = await this.todoService.updateTodo(req.params.id, dto);
                   res.json(updatedTodo);
             } catch (error: any) {
-                  res.status(500).json({ error: error.message });
+                  res.status(500).json({error: error.message});
             }
       }
 

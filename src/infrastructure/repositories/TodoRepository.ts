@@ -5,6 +5,7 @@ import sql from 'mssql';
 import { DatabaseConfig } from '../configurations/DatabaseConfig';
 
 export class TodoRepository implements ITodoRepository {
+
       private connectionPool: sql.ConnectionPool;
 
       constructor() {

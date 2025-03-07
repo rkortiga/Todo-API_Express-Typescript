@@ -5,7 +5,9 @@ import { CreateTodoDto } from '../../domain/dtos/CreateTodoDto';
 import { UpdateTodoDto } from '../../domain/dtos/UpdateTodoDto';
 
 export class TodoService implements ITodoService {
-      constructor(private todoRepository: ITodoRepository) {}
+      
+      constructor(private todoRepository: ITodoRepository) {
+      }
 
       async getAllTodos(): Promise<Todo[]> {
             return this.todoRepository.getAll();
@@ -16,7 +18,7 @@ export class TodoService implements ITodoService {
       }
 
       async createTodo(dto: CreateTodoDto): Promise<Todo> {
-            const todo: Todo = { id: '', title: dto.title, completed: false };
+            const todo: Todo = {id: '', title: dto.title, completed: false};
             return this.todoRepository.create(todo);
       }
 
