@@ -6,12 +6,10 @@ import { TodoRepository } from '../../infrastructure/repositories/TodoRepository
 
 const router = Router();
 
-// Instantiate the repository, service, and controller.
 const todoRepository = new TodoRepository();
 const todoService = new TodoService(todoRepository);
 const todoController = new TodoController(todoService);
 
-// Map routes to controller methods.
 router.get('/', (req: Request, res: Response) => todoController.getAll(req, res));
 router.get('/:id', (req: Request, res: Response) => todoController.getById(req, res));
 router.post('/', (req: Request, res: Response) => todoController.create(req, res));
