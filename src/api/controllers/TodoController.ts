@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { TodoService } from '../../application/services/TodoService';
 import { CreateTodoDto } from '../../domain/dtos/CreateTodoDto';
 import { UpdateTodoDto } from '../../domain/dtos/UpdateTodoDto';
+import { Todo } from '../../domain/entities/Todo';
 
 /**
  * @swagger
@@ -32,7 +33,7 @@ export class TodoController {
        *       500:
        *         description: Server error.
        */
-      async getAll(_req: Request, res: Response): Promise<void> {
+      async getAll(_req: Request, res: Response<Todo[] | { error: string }>): Promise<void> {
             try {
                   const todos = await this.todoService.getAllTodos();
                   res.json(todos);
@@ -66,11 +67,11 @@ export class TodoController {
        *       500:
        *         description: Server error.
        */
-      async getById(req: Request, res: Response): Promise<void> {
+      async getById(req: Request<{ id: string }>, res: Response<Todo | { error: string }>): Promise<void> {
             try {
                   const todo = await this.todoService.getTodoById(req.params.id);
                   if (!todo) {
-                        res.status(404).json({message: 'Todo not found'});
+                        res.status(404).json({error: 'Todo not found'});
                   } else {
                         res.json(todo);
                   }
@@ -101,7 +102,7 @@ export class TodoController {
        *       500:
        *         description: Server error.
        */
-      async create(req: Request<{}, {}, CreateTodoDto>, res: Response): Promise<void> {
+      async create(req: Request<{}, {}, CreateTodoDto>, res: Response<Todo | { error: string }>): Promise<void> {
             try {
                   const dto: CreateTodoDto = req.body;
                   const newTodo = await this.todoService.createTodo(dto);
@@ -140,7 +141,8 @@ export class TodoController {
        *       500:
        *         description: Server error.
        */
-      async update(req: Request<{ id: string }, {}, UpdateTodoDto>, res: Response): Promise<void> {
+      async update(req: Request<{ id: string }, {}, UpdateTodoDto>,
+                   res: Response<Todo | { error: string }>): Promise<void> {
             try {
                   const dto: UpdateTodoDto = req.body;
                   const updatedTodo = await this.todoService.updateTodo(req.params.id, dto);
@@ -169,7 +171,7 @@ export class TodoController {
        *       500:
        *         description: Server error.
        */
-      async delete(req: Request, res: Response): Promise<void> {
+      async delete(req: Request<{ id: string }>, res: Response<{ error: string } | void>): Promise<void> {
             try {
                   await this.todoService.deleteTodo(req.params.id);
                   res.status(204).send();
