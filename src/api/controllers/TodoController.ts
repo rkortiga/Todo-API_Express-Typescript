@@ -101,7 +101,7 @@ export class TodoController {
        *       500:
        *         description: Server error.
        */
-      async create(req: Request, res: Response): Promise<void> {
+      async create(req: Request<{}, {}, CreateTodoDto>, res: Response): Promise<void> {
             try {
                   const dto: CreateTodoDto = req.body;
                   const newTodo = await this.todoService.createTodo(dto);
@@ -140,7 +140,7 @@ export class TodoController {
        *       500:
        *         description: Server error.
        */
-      async update(req: Request, res: Response): Promise<void> {
+      async update(req: Request<{ id: string }, {}, UpdateTodoDto>, res: Response): Promise<void> {
             try {
                   const dto: UpdateTodoDto = req.body;
                   const updatedTodo = await this.todoService.updateTodo(req.params.id, dto);
