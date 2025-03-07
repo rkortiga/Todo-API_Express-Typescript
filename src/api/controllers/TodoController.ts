@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import { TodoService } from '../../application/services/TodoService';
+import { CreateTodoDto } from '../../domain/dtos/CreateTodoDto';
+import { UpdateTodoDto } from '../../domain/dtos/UpdateTodoDto';
 
 /**
  * @swagger
@@ -105,11 +107,11 @@ export class TodoController {
        */
       async create(req: Request, res: Response): Promise<void> {
             try {
-                  const {title} = req.body;
-                  const newTodo = await this.todoService.createTodo(title);
+                  const dto: CreateTodoDto = req.body;
+                  const newTodo = await this.todoService.createTodo(dto);
                   res.status(201).json(newTodo);
             } catch (error: any) {
-                  res.status(500).json({error: error.message});
+                  res.status(500).json({ error: error.message });
             }
       }
 
@@ -152,11 +154,11 @@ export class TodoController {
        */
       async update(req: Request, res: Response): Promise<void> {
             try {
-                  const {title, completed} = req.body;
-                  const updatedTodo = await this.todoService.updateTodo(req.params.id, title, completed);
+                  const dto: UpdateTodoDto = req.body;
+                  const updatedTodo = await this.todoService.updateTodo(req.params.id, dto);
                   res.json(updatedTodo);
             } catch (error: any) {
-                  res.status(500).json({error: error.message});
+                  res.status(500).json({ error: error.message });
             }
       }
 
