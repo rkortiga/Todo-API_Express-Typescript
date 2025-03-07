@@ -1,7 +1,7 @@
 import express from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "./swagger";
-import todoRouter from "./api/routers/TodoRouter";
+import todoRouter from "./api/routes/TodoRouter";
 import dotenv from "dotenv";
 
 dotenv.config();
