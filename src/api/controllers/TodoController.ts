@@ -89,12 +89,7 @@ export class TodoController {
        *       content:
        *         application/json:
        *           schema:
-       *             type: object
-       *             properties:
-       *               title:
-       *                 type: string
-       *             required:
-       *               - title
+       *             $ref: '#/components/schemas/CreateTodoDto'
        *     responses:
        *       201:
        *         description: Todo created successfully.
@@ -133,15 +128,7 @@ export class TodoController {
        *       content:
        *         application/json:
        *           schema:
-       *             type: object
-       *             properties:
-       *               title:
-       *                 type: string
-       *               completed:
-       *                 type: boolean
-       *             required:
-       *               - title
-       *               - completed
+       *             $ref: '#/components/schemas/UpdateTodoDto'
        *     responses:
        *       200:
        *         description: Todo updated successfully.

@@ -21,7 +21,11 @@ const options: Options = {
                   },
             ],
       },
-      apis: ['./src/api/**/*.ts', './src/domain/entities/**/*.ts'],
+      apis: [
+            './src/api/**/*.ts',
+            './src/domain/entities/**/*.ts',
+            './src/domain/dtos/**/*.ts'
+      ],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
