@@ -4,19 +4,19 @@ import { Todo } from '../../domain/entities/Todo';
 import sql from 'mssql';
 import { DatabaseConfig } from '../configurations/DatabaseConfig';
 
-export class SqlServerTodoRepository implements ITodoRepository {
-      private pool: sql.ConnectionPool;
+export class TodoRepository implements ITodoRepository {
+      private connectionPool: sql.ConnectionPool;
 
       constructor() {
-            this.pool = new sql.ConnectionPool(DatabaseConfig);
-            this.pool.connect().catch((err) =>
+            this.connectionPool = new sql.ConnectionPool(DatabaseConfig);
+            this.connectionPool.connect().catch((err) =>
                   console.error('SQL Server connection failed: ', err)
             );
       }
 
       async getAll(): Promise<Todo[]> {
             try {
-                  const result = await this.pool.request().query(
+                  const result = await this.connectionPool.request().query(
                         'SELECT id, title, completed FROM Todos'
                   );
                   return result.recordset.map((row: any) => ({
@@ -32,7 +32,7 @@ export class SqlServerTodoRepository implements ITodoRepository {
 
       async getById(id: string): Promise<Todo | null> {
             try {
-                  const result = await this.pool
+                  const result = await this.connectionPool
                         .request()
                         .input('id', sql.UniqueIdentifier, id)
                         .query('SELECT id, title, completed FROM Todos WHERE id = @id');
@@ -49,7 +49,7 @@ export class SqlServerTodoRepository implements ITodoRepository {
       async create(todo: Todo): Promise<Todo> {
             try {
                   todo.id = uuidv4();
-                  await this.pool
+                  await this.connectionPool
                         .request()
                         .input('id', sql.UniqueIdentifier, todo.id)
                         .input('title', sql.NVarChar, todo.title)
@@ -66,7 +66,7 @@ export class SqlServerTodoRepository implements ITodoRepository {
 
       async update(todo: Todo): Promise<Todo> {
             try {
-                  await this.pool
+                  await this.connectionPool
                         .request()
                         .input('id', sql.UniqueIdentifier, todo.id)
                         .input('title', sql.NVarChar, todo.title)
@@ -83,7 +83,7 @@ export class SqlServerTodoRepository implements ITodoRepository {
 
       async delete(id: string): Promise<void> {
             try {
-                  await this.pool
+                  await this.connectionPool
                         .request()
                         .input('id', sql.UniqueIdentifier, id)
                         .query('DELETE FROM Todos WHERE id = @id');

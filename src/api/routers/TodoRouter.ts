@@ -2,12 +2,12 @@ import { Router } from 'express';
 import { Request, Response } from 'express';
 import { TodoController } from '../controllers/TodoController';
 import { TodoService } from '../../application/services/TodoService';
-import { SqlServerTodoRepository } from '../../infrastructure/repositories/SqlServerTodoRepository';
+import { TodoRepository } from '../../infrastructure/repositories/TodoRepository';
 
 const router = Router();
 
 // Instantiate the repository, service, and controller.
-const todoRepository = new SqlServerTodoRepository();
+const todoRepository = new TodoRepository();
 const todoService = new TodoService(todoRepository);
 const todoController = new TodoController(todoService);
 
