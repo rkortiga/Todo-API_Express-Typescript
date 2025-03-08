@@ -8,7 +8,7 @@ A simple CRUD Todo API built with **Express** and **TypeScript**, following Clea
 - **SQL Server** integration via a repository pattern.
 - **Swagger** documentation.
 - Automated database creation via a custom initialization script (**docker-entrypoint.sh**).
-- Schema migration using **TypeORM**
+- Schema migration using **TypeORM**.
 - **Docker** and **Docker** Compose for containerization and orchestration.
 
 ## Getting Started
@@ -46,9 +46,9 @@ A simple CRUD Todo API built with **Express** and **TypeScript**, following Clea
    npm run dev
    ```
 
-## Running with Docker
+## Run in Development Mode with Docker Compose
 
-Make sure you have Docker and Docker Compose installed. Then run:
+Make sure you have Docker installed. Then run:
 
 ```bash
 docker-compose up -d --build
