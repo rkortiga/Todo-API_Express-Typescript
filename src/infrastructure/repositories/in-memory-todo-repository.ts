@@ -1,6 +1,5 @@
-
-import { Todo } from "../../domain/entities/Todo";
-import { v4 as uuidv4 } from "uuid";
+import { Todo } from '../../domain/entities/todo';
+import { v4 as uuidv4 } from 'uuid';
 import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
 
 export class InMemoryTodoRepository implements ITodoRepository {
@@ -23,7 +22,7 @@ export class InMemoryTodoRepository implements ITodoRepository {
       async update(todo: Todo): Promise<Todo> {
             const index = this.todos.findIndex(t => t.id === todo.id);
             if (index === -1) {
-                  throw new Error("Todo not found");
+                  throw new Error('Todo not found');
             }
             this.todos[index] = todo;
             return todo;

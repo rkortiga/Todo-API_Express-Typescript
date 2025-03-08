@@ -1,4 +1,4 @@
-import { Todo } from '../entities/Todo';
+import { Todo } from '../entities/todo';
 
 export interface ITodoRepository {
       getAll(): Promise<Todo[]>;

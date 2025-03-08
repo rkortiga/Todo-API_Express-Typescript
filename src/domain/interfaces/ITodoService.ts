@@ -1,4 +1,4 @@
-import { Todo } from '../entities/Todo';
+import { Todo } from '../entities/todo';
 import { CreateTodoDto } from '../dtos/create-todo-dto';
 import { UpdateTodoDto } from '../dtos/update-todo-dto';
 
