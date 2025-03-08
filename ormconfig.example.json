@@ -6,7 +6,7 @@
   "password": "YourPasswordHere",
   "database": "TodoDB",
   "entities": [
-    "src/infrastructure/entities/**/*.ts"
+    "src/infrastructure/schema/**/*.ts"
   ],
   "synchronize": true,
   "options": {

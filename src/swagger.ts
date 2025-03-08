@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
-import swaggerJSDoc from 'swagger-jsdoc';
-import { Options } from 'swagger-jsdoc';
+import swaggerJSDoc, { Options } from 'swagger-jsdoc';
 
 dotenv.config();
 
@@ -12,20 +11,20 @@ const options: Options = {
             info: {
                   title: 'Todo API',
                   version: '1.0.0',
-                  description: 'A simple CRUD Todo API using Express and TypeScript',
+                  description: 'A simple CRUD Todo API using Express and TypeScript'
             },
             servers: [
                   {
                         url: `http://localhost:${port}`,
-                        description: 'Development server',
-                  },
-            ],
+                        description: 'Development server'
+                  }
+            ]
       },
       apis: [
             './src/api/**/*.ts',
             './src/domain/entities/**/*.ts',
             './src/domain/dtos/**/*.ts'
-      ],
+      ]
 };
 
 const swaggerSpec = swaggerJSDoc(options);
