@@ -1,5 +1,5 @@
 import { ConnectionPool } from 'mssql';
-import { DatabaseConfig } from './DatabaseConfig';
+import { DatabaseConfig } from './database-config';
 
 async function initializeDatabase(): Promise<void> {
       const masterConfig = {...DatabaseConfig, database: 'master'};
