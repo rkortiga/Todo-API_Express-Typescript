@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { TodoController } from '../controllers/TodoController';
-import { TodoService } from '../../application/services/TodoService';
+import { TodoService } from '../../application/services/todo-service';
 import { TodoRepository } from '../../infrastructure/repositories/todo-repository';
 import { Validator } from '../middleware/Validator';
 import { CreateTodoDto } from '../../domain/dtos/create-todo-dto';
