@@ -3,7 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './swagger';
-import todoRouter from './api/routes/TodoRouter';
+import todoRouter from './api/routes/todo-router';
 import { AppDataSource } from './infrastructure/configurations/app-data-source';
 
 dotenv.config();
