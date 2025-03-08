@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
 import { Todo } from '../../domain/entities/Todo';
 import sql from 'mssql';
-import { DatabaseConfig } from '../configurations/DatabaseConfig';
+import { DatabaseConfig } from '../configurations/database-config';
 
 export class TodoRepository implements ITodoRepository {
 
