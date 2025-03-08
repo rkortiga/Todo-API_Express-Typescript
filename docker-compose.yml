@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  api:
+    build: .
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - service_network
+    restart: always
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    env_file:
+      - .env
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SQL_PASSWORD}
+      - MSSQL_PID=Express
+    ports:
+      - "${SQL_PORT}:1433"
+    volumes:
+      - persistence:/var/opt/mssql
+    networks:
+      - service_network
+
+networks:
+  service_network:
+
+volumes:
+  persistence:
