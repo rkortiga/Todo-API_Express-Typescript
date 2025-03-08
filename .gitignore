@@ -143,6 +143,7 @@ atlassian-ide-plugin.xml
 .vscode/
 
 src/dummy.js
+ormconfig.json
 
 # ==================================================
 # End of .gitignore

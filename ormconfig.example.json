@@ -1,0 +1,16 @@
+{
+  "type": "mssql",
+  "host": "localhost",
+  "port": 1433,
+  "username": "sa",
+  "password": "YourPasswordHere",
+  "database": "TodoDB",
+  "entities": [
+    "src/infrastructure/entities/**/*.ts"
+  ],
+  "synchronize": true,
+  "options": {
+    "encrypt": false,
+    "trustServerCertificate": true
+  }
+}
