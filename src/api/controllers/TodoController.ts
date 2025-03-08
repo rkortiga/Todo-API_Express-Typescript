@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { TodoService } from '../../application/services/TodoService';
-import { CreateTodoDto } from '../../domain/dtos/CreateTodoDto';
-import { UpdateTodoDto } from '../../domain/dtos/UpdateTodoDto';
+import { CreateTodoDto } from '../../domain/dtos/create-todo-dto';
+import { UpdateTodoDto } from '../../domain/dtos/update-todo-dto';
 import { Todo } from '../../domain/entities/Todo';
 
 /**

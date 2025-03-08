@@ -1,11 +1,11 @@
 import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
 import { ITodoService } from '../../domain/interfaces/ITodoService';
 import { Todo } from '../../domain/entities/Todo';
-import { CreateTodoDto } from '../../domain/dtos/CreateTodoDto';
-import { UpdateTodoDto } from '../../domain/dtos/UpdateTodoDto';
+import { CreateTodoDto } from '../../domain/dtos/create-todo-dto';
+import { UpdateTodoDto } from '../../domain/dtos/update-todo-dto';
 
 export class TodoService implements ITodoService {
-      
+
       constructor(private todoRepository: ITodoRepository) {
       }
 

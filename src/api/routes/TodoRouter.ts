@@ -3,8 +3,8 @@ import { TodoController } from '../controllers/TodoController';
 import { TodoService } from '../../application/services/TodoService';
 import { TodoRepository } from '../../infrastructure/repositories/todo-repository';
 import { Validator } from '../middleware/Validator';
-import { CreateTodoDto } from '../../domain/dtos/CreateTodoDto';
-import { UpdateTodoDto } from '../../domain/dtos/UpdateTodoDto';
+import { CreateTodoDto } from '../../domain/dtos/create-todo-dto';
+import { UpdateTodoDto } from '../../domain/dtos/update-todo-dto';
 import { Todo } from '../../domain/entities/Todo';
 
 const router = Router();

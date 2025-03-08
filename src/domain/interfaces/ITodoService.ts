@@ -1,6 +1,6 @@
 import { Todo } from '../entities/Todo';
-import { CreateTodoDto } from '../dtos/CreateTodoDto';
-import { UpdateTodoDto } from '../dtos/UpdateTodoDto';
+import { CreateTodoDto } from '../dtos/create-todo-dto';
+import { UpdateTodoDto } from '../dtos/update-todo-dto';
 
 export interface ITodoService {
       getAllTodos(): Promise<Todo[]>;
