@@ -2,12 +2,14 @@
 
 A simple CRUD Todo API built with **Express** and **TypeScript**, following Clean Architecture principles.
 
-## Features
+## Highlights
 
 - **Clean Architecture** structure (domain, application, infrastructure, and API layers).
 - **SQL Server** integration via a repository pattern.
-- **Swagger** documentation for easy API exploration.
-- Automated database creation via a custom initialization script and schema migration using **TypeORM**.
+- **Swagger** documentation.
+- Automated database creation via a custom initialization script (**docker-entrypoint.sh**).
+- Schema migration using **TypeORM**
+- **Docker** and **Docker** Compose for containerization and orchestration.
 
 ## Getting Started
 
