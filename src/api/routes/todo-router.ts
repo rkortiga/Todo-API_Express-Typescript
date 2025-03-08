@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import { TodoController } from '../controllers/TodoController';
 import { TodoService } from '../../application/services/todo-service';
 import { TodoRepository } from '../../infrastructure/repositories/todo-repository';
-import { Validator } from '../middleware/Validator';
+import { Validator } from '../middleware/validator';
 import { CreateTodoDto } from '../../domain/dtos/create-todo-dto';
 import { UpdateTodoDto } from '../../domain/dtos/update-todo-dto';
 import { Todo } from '../../domain/entities/todo';
