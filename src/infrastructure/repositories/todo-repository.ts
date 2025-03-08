@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
+import { ITodoRepository } from '../../domain/interfaces/todo-repository.interface';
 import { Todo } from '../../domain/entities/todo';
 import sql from 'mssql';
 import { DatabaseConfig } from '../configurations/database-config';

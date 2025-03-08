@@ -1,5 +1,5 @@
-import { ITodoRepository } from '../../domain/interfaces/ITodoRepository';
-import { ITodoService } from '../../domain/interfaces/ITodoService';
+import { ITodoRepository } from '../../domain/interfaces/todo-repository.interface';
+import { ITodoService } from '../../domain/interfaces/todo-service.interface';
 import { Todo } from '../../domain/entities/todo';
 import { CreateTodoDto } from '../../domain/dtos/create-todo-dto';
 import { UpdateTodoDto } from '../../domain/dtos/update-todo-dto';
